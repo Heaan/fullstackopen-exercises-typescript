@@ -12,9 +12,8 @@ const parseArgs = (args: Array<string>): Args => {
       target: Number(target),
       hours: hours.map((item) => Number(item)),
     };
-  } else {
-    throw new Error('Provided values were not numbers!');
   }
+  throw new Error('Provided values were not numbers!');
 };
 
 interface Result {

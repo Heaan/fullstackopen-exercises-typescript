@@ -1,20 +1,20 @@
-interface Args {
+interface ArgsBmi {
   height: number;
   weight: number;
 }
 
-const parseArgv = (args: Array<string>): Args => {
+const parseArgv = (args: Array<string>): ArgsBmi => {
   if (args.length < 4) throw new Error('Not enough arguments');
   if (args.length > 4) throw new Error('Too many arguments');
 
+  // eslint-disable-next-line no-restricted-globals
   if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
     return {
       height: Number(args[2]),
       weight: Number(args[3]),
     };
-  } else {
-    throw new Error('Provided values were not numbers!');
   }
+  throw new Error('Provided values were not numbers!');
 };
 
 const calculateBmi = (height: number, weight: number): string => {
@@ -36,3 +36,5 @@ try {
 } catch (err) {
   console.error('Error, something bad happened, message: ', err.message);
 }
+
+export default calculateBmi;
