@@ -59,5 +59,6 @@ try {
   const { target, hours } = parseArgs(process.argv);
   console.log(calculateExercises(target, hours));
 } catch (err) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   console.error('Error, something bad happened, message: ', err.message);
 }

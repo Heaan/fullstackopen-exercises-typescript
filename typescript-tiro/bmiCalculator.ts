@@ -7,7 +7,6 @@ const parseArgv = (args: Array<string>): ArgsBmi => {
   if (args.length < 4) throw new Error('Not enough arguments');
   if (args.length > 4) throw new Error('Too many arguments');
 
-  // eslint-disable-next-line no-restricted-globals
   if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
     return {
       height: Number(args[2]),
@@ -34,6 +33,7 @@ try {
   const { height, weight } = parseArgv(process.argv);
   console.log(calculateBmi(height, weight));
 } catch (err) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   console.error('Error, something bad happened, message: ', err.message);
 }
 
