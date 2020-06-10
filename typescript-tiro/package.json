@@ -1,0 +1,21 @@
+{
+  "name": "typescript-tiro",
+  "version": "0.1.0",
+  "description": "learning typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "calculateBmi": "ts-node bmiCalculator.ts"
+  },
+  "keywords": [
+    "learning",
+    "typescript",
+    "ts-node"
+  ],
+  "author": "Heaan Chan",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  }
+}
