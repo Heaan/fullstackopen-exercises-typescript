@@ -33,8 +33,7 @@ try {
   const { height, weight } = parseArgv(process.argv);
   console.log(calculateBmi(height, weight));
 } catch (err) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  console.error('Error, something bad happened, message: ', err.message);
+  console.error('Error, something bad happened, message: ', err.message); // eslint-disable-line @typescript-eslint/no-unsafe-member-access
 }
 
 export default calculateBmi;

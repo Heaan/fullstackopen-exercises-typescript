@@ -25,7 +25,7 @@ interface Result {
   target: number;
   average: number;
 }
-const calculateExercises = (target: number, dailyExerciseHours: Array<number>) => {
+const calculateExercises = (dailyExerciseHours: Array<number>, target: number): Result => {
   const rankSelection = (averageOfDaily: number) => {
     if (averageOfDaily < 0.5) {
       return { rating: 1, ratingDescription: 'too bad, should work harder' };
@@ -38,7 +38,7 @@ const calculateExercises = (target: number, dailyExerciseHours: Array<number>) =
 
   const periodLength = dailyExerciseHours.length;
   const trainingDays = dailyExerciseHours.filter((day) => day).length;
-  const average = dailyExerciseHours.reduce((acc, cur) => acc + cur, 0) / periodLength;
+  const average = dailyExerciseHours.reduce((acc, cur) => acc + Number(cur), 0) / periodLength;
   const { rating, ratingDescription } = rankSelection(average);
   const success = average >= target;
 
@@ -57,8 +57,9 @@ const calculateExercises = (target: number, dailyExerciseHours: Array<number>) =
 
 try {
   const { target, hours } = parseArgs(process.argv);
-  console.log(calculateExercises(target, hours));
+  console.log(calculateExercises(hours, target));
 } catch (err) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  console.error('Error, something bad happened, message: ', err.message);
+  console.error('Error, something bad happened, message: ', err.message); // eslint-disable-line @typescript-eslint/no-unsafe-member-access
 }
+
+export default calculateExercises;
