@@ -22,7 +22,13 @@ const addPatient = (patient: NewPatient): Patient => {
   return newPatient;
 };
 
+const getPatientById = (id: string): Patient | undefined => {
+  const patient = patients.find((item) => item.id === id);
+  return patient;
+};
+
 export default {
   getNonSsnPatientEntry,
   addPatient,
+  getPatientById,
 };
