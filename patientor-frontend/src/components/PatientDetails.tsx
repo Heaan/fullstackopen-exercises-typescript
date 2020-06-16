@@ -10,12 +10,12 @@ import { apiBaseUrl } from '../constants';
 const PatientDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient | undefined>();
-  const [{ patients }, dispatch] = useStateValue();
+  const [{ patients, diagnosis }, dispatch] = useStateValue();
 
   useEffect(() => {
     const fetchData = async (id: string) => {
       try {
-        const { data: patientData } = await axios.get(`${apiBaseUrl}/patients/${id}`);
+        const { data: patientData } = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
         dispatch(patientDetails(patientData));
         setPatient(patientData);
       } catch (err) {
@@ -58,7 +58,9 @@ const PatientDetails: React.FC = () => {
             </div>
             <ul>
               {entry?.diagnosisCodes?.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item}>
+                  {item} {diagnosis[item]?.name}
+                </li>
               ))}
             </ul>
           </React.Fragment>
