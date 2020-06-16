@@ -49,6 +49,21 @@ const PatientDetails: React.FC = () => {
       </h2>
       <div>ssn: {patient?.ssn}</div>
       <div>occupation: {patient?.occupation}</div>
+      <h3>entries</h3>
+      {patient?.entries?.map((entry) => {
+        return (
+          <React.Fragment key={entry.id}>
+            <div>
+              {entry.date} {entry.description}
+            </div>
+            <ul>
+              {entry?.diagnosisCodes?.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </React.Fragment>
+        );
+      })}
     </div>
   );
 };
