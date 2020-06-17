@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Gender, NewPatient } from './types';
+import { Gender, NewPatient } from '../types';
 
-const isString = (str: any): str is string => {
+export const isString = (str: any): str is string => {
   return typeof str === 'string' || str instanceof String;
 };
 
-const isDate = (date: any): boolean => {
+export const isDate = (date: any): boolean => {
   return Boolean(Date.parse(date));
 };
 
