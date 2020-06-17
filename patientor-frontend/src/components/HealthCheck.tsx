@@ -29,6 +29,11 @@ const HealthCheck: React.FC<{ entry: HealthCheckEntry }> = ({ entry }) => {
         <Card.Meta>{entry.description}</Card.Meta>
         <Card.Description>{ratingOf(entry.healthCheckRating)}</Card.Description>
       </Card.Content>
+      <Card.Content extra>
+        <Card.Description>
+          Specialist: <strong>{entry.specialist}</strong>
+        </Card.Description>
+      </Card.Content>
       <DiagnosisCodes diagnosisCodes={entry.diagnosisCodes} />
     </Card>
   );

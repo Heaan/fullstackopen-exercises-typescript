@@ -21,6 +21,11 @@ const Hospital: React.FC<{ entry: HospitalEntry }> = ({ entry }) => {
           </div>
         </Card.Description>
       </Card.Content>
+      <Card.Content extra>
+        <Card.Description>
+          Specialist: <strong>{entry.specialist}</strong>
+        </Card.Description>
+      </Card.Content>
       <DiagnosisCodes diagnosisCodes={entry.diagnosisCodes} />
     </Card>
   );

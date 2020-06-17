@@ -12,7 +12,11 @@ const OccupationalHealthcare: React.FC<{ entry: OccupationalHealthcareEntry }> =
           {entry.date} <Icon name="treatment" size="big" /> {entry.employerName}
         </Card.Header>
         <Card.Meta>{entry.description}</Card.Meta>
-        <Card.Description>Matthew is a pianist living in Nashville.</Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        <Card.Description>
+          Specialist: <strong>{entry.specialist}</strong>
+        </Card.Description>
       </Card.Content>
       <DiagnosisCodes diagnosisCodes={entry.diagnosisCodes} />
       {entry.sickLeave ? (

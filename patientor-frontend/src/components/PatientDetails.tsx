@@ -50,7 +50,7 @@ const PatientDetails: React.FC = () => {
       </h2>
       <div>ssn: {patient?.ssn}</div>
       <div>occupation: {patient?.occupation}</div>
-      <h3>entries</h3>
+      <h3>Entries</h3>
       {patient?.entries?.map((entry) => {
         return <EntryDetails key={entry.id} entry={entry} />;
       })}
