@@ -48,9 +48,12 @@ export const reducer = (state: State, action: Action): State => {
     case 'FETCH_DIAGNOSIS':
       return {
         ...state,
-        diagnosis: {
-          ...action.payload.reduce((memo, item) => ({ ...memo, [item.code]: item }), {}),
-          ...state.diagnosis,
+        diagnoses: {
+          ...action.payload.reduce(
+            (memo, diagnosis) => ({ ...memo, [diagnosis.code]: diagnosis }),
+            {},
+          ),
+          ...state.diagnoses,
         },
       };
     default:

@@ -6,11 +6,12 @@ import axios from 'axios';
 import { useStateValue, patientDetails } from '../state';
 import { Patient, Gender } from '../types';
 import { apiBaseUrl } from '../constants';
+import EntryDetails from './EntryDetails';
 
 const PatientDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient | undefined>();
-  const [{ patients, diagnosis }, dispatch] = useStateValue();
+  const [{ patients }, dispatch] = useStateValue();
 
   useEffect(() => {
     const fetchData = async (id: string) => {
@@ -51,20 +52,7 @@ const PatientDetails: React.FC = () => {
       <div>occupation: {patient?.occupation}</div>
       <h3>entries</h3>
       {patient?.entries?.map((entry) => {
-        return (
-          <React.Fragment key={entry.id}>
-            <div>
-              {entry.date} {entry.description}
-            </div>
-            <ul>
-              {entry?.diagnosisCodes?.map((item) => (
-                <li key={item}>
-                  {item} {diagnosis[item]?.name}
-                </li>
-              ))}
-            </ul>
-          </React.Fragment>
-        );
+        return <EntryDetails key={entry.id} entry={entry} />;
       })}
     </div>
   );
