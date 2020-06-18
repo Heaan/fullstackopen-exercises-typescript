@@ -1,3 +1,4 @@
+// todo Refactor organization codes
 import React from 'react';
 import { Field, Formik, Form } from 'formik';
 import { Button } from 'semantic-ui-react';
@@ -47,9 +48,22 @@ const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
         healthCheckRating: HealthCheckRating.Health,
       }}
       onSubmit={onSubmit}
-      // validate={(values) => {}}
+      validate={(values) => {
+        const requiredError = 'Field is required';
+        const errors: { [field: string]: string } = {};
+        if (!values.description) {
+          errors.description = requiredError;
+        }
+        if (!values.date) {
+          errors.date = requiredError;
+        }
+        if (!values.specialist) {
+          errors.specialist = requiredError;
+        }
+        return errors;
+      }}
     >
-      {({ isValid = true, dirty = true, setFieldValue, setFieldTouched }) => (
+      {({ isValid, dirty, setFieldValue, setFieldTouched }) => (
         <Form>
           <FormUi.Field>
             <label>Types Select</label>
@@ -69,7 +83,7 @@ const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
             component={TextField}
           />
           <Field
-            type="date"
+            type="date" //todo date input
             label="Date"
             placeholder="YYYY-MM-DD"
             name="date"

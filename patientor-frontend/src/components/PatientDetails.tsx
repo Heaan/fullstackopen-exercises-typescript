@@ -65,6 +65,7 @@ const PatientDetails: React.FC = () => {
       closeModal();
     } catch (e) {
       console.error(e.response.data);
+      // todo Error message
       setError(e.response.data.error);
     }
   };
