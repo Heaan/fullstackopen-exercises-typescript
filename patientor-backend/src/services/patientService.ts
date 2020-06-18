@@ -27,7 +27,7 @@ const getPatientById = (id: string): Patient | undefined => {
   return patient;
 };
 
-const addEntryById = (id: string, entry: NewEntry): Patient | undefined => {
+const addEntryById = (id: string, entry: NewEntry): Entry | undefined => {
   const patient = patients.find((item) => item.id === id);
   if (patient) {
     const newEntry: Entry = {

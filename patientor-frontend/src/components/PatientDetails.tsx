@@ -8,7 +8,7 @@ import { Patient, Gender, Entry } from '../types';
 import { apiBaseUrl } from '../constants';
 import EntryDetails from './EntryDetails';
 import AddEntryModal from '../AddEntryModal';
-import { EntryFormValues } from '../AddEntryModal/AddEntryForm';
+import { EntryFormValues } from '../types';
 
 const PatientDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -55,12 +55,35 @@ const PatientDetails: React.FC = () => {
     setError(undefined);
   };
 
+  const valuesFilter = (values: EntryFormValues) => {
+    switch (values.type) {
+      case 'HealthCheck': {
+        delete values.discharge;
+        delete values.employerName;
+        delete values.sickLeave;
+        return values;
+      }
+      case 'Hospital': {
+        delete values.healthCheckRating;
+        delete values.employerName;
+        delete values.sickLeave;
+        return values;
+      }
+      default:
+        return values;
+    }
+  };
+
   const submitNewEntry = async (values: EntryFormValues) => {
+    const entries = valuesFilter(values);
     try {
       const { data: newEntry } = await axios.post<Entry>(
         `${apiBaseUrl}/patients/${id}/entries`,
-        values,
+        entries,
       );
+      if (patient) {
+        setPatient({ ...patient, entries: patient.entries.concat(newEntry) });
+      }
       dispatch(addEntry({ id, newEntry }));
       closeModal();
     } catch (e) {
