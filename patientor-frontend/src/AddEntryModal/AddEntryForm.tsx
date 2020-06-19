@@ -1,13 +1,12 @@
-// todo Refactor organization codes
 import React from 'react';
 import { Field, Formik, Form } from 'formik';
-import { Button } from 'semantic-ui-react';
-import * as Yup from 'yup';
+import { Button, Form as FormUi, Grid } from 'semantic-ui-react';
 
-import { TextField, DiagnosisSelection } from '../AddPatientModal/FormField';
-import { HealthCheckRating, EntryFormValues } from '../types';
+import { DiagnosisSelection } from '../AddPatientModal/FormField';
+import { HealthCheckRating, EntryFormValues, EntryFormErrors } from '../types';
 import { useStateValue } from '../state';
-import { DateField, SelectField, NestedField } from '../components/Fields';
+import { UtilField, SelectField } from '../components/Fields';
+import TypeField from './TypeField';
 
 interface Props {
   onSubmit: (values: EntryFormValues) => void;
@@ -20,50 +19,10 @@ type TypeOption = {
 };
 
 const typesOptions: TypeOption[] = [
-  { value: 'HealthCheck', label: 'Health Check' },
+  { value: 'HealthCheck', label: 'Health check' },
   { value: 'Hospital', label: 'Hospital' },
+  { value: 'OccupationalHealthcare', label: 'Occupational healthcare' },
 ];
-
-type RatingOption = {
-  value: HealthCheckRating;
-  label: string;
-};
-
-const ratingOptions: RatingOption[] = [
-  { value: HealthCheckRating.Health, label: 'Health' },
-  { value: HealthCheckRating.LowRisk, label: 'Low risk' },
-  { value: HealthCheckRating.HightRisk, label: 'Hight risk' },
-  { value: HealthCheckRating.CriticalRisk, label: 'Critical risk' },
-];
-
-const HealthCheckField = () => (
-  <SelectField label="Rating Select" name="healthCheckRating" options={ratingOptions} />
-);
-
-const HospitalField = () => (
-  <Field label="Discharge" name="discharge" placeholder="Discharge" component={NestedField} />
-);
-
-const TypeField: React.FC<{ type: string }> = ({ type }) => {
-  switch (type) {
-    case 'HealthCheck':
-      return <HealthCheckField />;
-    case 'Hospital':
-      return <HospitalField />;
-    default:
-      return null;
-  }
-};
-
-const EntrySchema = Yup.object().shape({
-  description: Yup.string().required('Field is required'),
-  date: Yup.string().required('Field is required'),
-  specialist: Yup.string().required('Field is required'),
-  discharge: Yup.object().shape({
-    date: Yup.string().required('Field is required'),
-    criteria: Yup.string().required('Field is required'),
-  }),
-});
 
 const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
   const [{ diagnoses }] = useStateValue();
@@ -81,28 +40,67 @@ const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
           date: '',
           criteria: '',
         },
+        employerName: '',
+        sickLeave: {
+          startDate: '',
+          endDate: '',
+        },
       }}
       onSubmit={onSubmit}
-      validationSchema={EntrySchema}
+      validate={(values) => {
+        const requiredError = 'Field is required';
+        const errors: EntryFormErrors = {};
+        if (!values.description) {
+          errors.description = requiredError;
+        }
+        if (!values.date) {
+          errors.date = requiredError;
+        }
+        if (!values.specialist) {
+          errors.specialist = requiredError;
+        }
+        if (values.type === 'Hospital') {
+          if (!values.discharge.date) {
+            errors.discharge = { ...errors.discharge, date: requiredError };
+          }
+          if (!values.discharge.criteria) {
+            errors.discharge = { ...errors.discharge, criteria: requiredError };
+          }
+        }
+        if (values.type === 'OccupationalHealthcare') {
+          if (!values.employerName) {
+            errors.employerName = requiredError;
+          }
+          if (values.sickLeave.startDate && values.sickLeave.endDate) {
+            if (Date.parse(values.sickLeave.startDate) > Date.parse(values.sickLeave.endDate)) {
+              errors.sickLeave = {
+                ...errors.sickLeave,
+                endDate: 'Start date should not be later than end date',
+              };
+            }
+          }
+        }
+        return errors;
+      }}
     >
       {({ isValid, dirty, setFieldValue, setFieldTouched, values }) => (
-        <Form>
-          <SelectField label="Type Select" name="type" options={typesOptions} />
+        <Form className="form ui">
+          <FormUi.Group widths="equal" style={{ display: 'flex', alignItems: 'center' }}>
+            <Field
+              label="Specialist"
+              placeholder="Specialist"
+              name="specialist"
+              component={UtilField}
+            />
+            <Field label="Date" name="date" type="date" component={UtilField} />
+            <SelectField label="Type Select" name="type" options={typesOptions} />
+          </FormUi.Group>
 
           <Field
             label="Description"
             placeholder="Description"
             name="description"
-            component={TextField}
-          />
-
-          <Field label="Date" name="date" component={DateField} />
-
-          <Field
-            label="Specialist"
-            placeholder="Specialist"
-            name="specialist"
-            component={TextField}
+            component={UtilField}
           />
 
           <TypeField type={values.type} />
@@ -112,11 +110,18 @@ const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
             setFieldTouched={setFieldTouched}
             diagnoses={Object.values(diagnoses)}
           />
-
-          <Button onClick={onCancel}>Cancel</Button>
-          <Button type="submit" disabled={!dirty || !isValid}>
-            Submit
-          </Button>
+          <Grid>
+            <Grid.Column floated="left" width={5}>
+              <Button type="button" onClick={onCancel} color="youtube">
+                Cancel
+              </Button>
+            </Grid.Column>
+            <Grid.Column floated="right" width={5}>
+              <Button type="submit" floated="right" color="vk" disabled={!dirty || !isValid}>
+                Submit
+              </Button>
+            </Grid.Column>
+          </Grid>
         </Form>
       )}
     </Formik>

@@ -6,14 +6,12 @@ dependencies:
   react-router-dom: 5.2.0_react@16.13.1
   semantic-ui-css: 2.4.1
   semantic-ui-react: 0.88.2_react-dom@16.13.1+react@16.13.1
-  yup: 0.29.1
 devDependencies:
   '@types/jest': 24.0.19
   '@types/node': 12.11.7
   '@types/react': 16.9.36
   '@types/react-dom': 16.9.3
   '@types/react-router-dom': 5.1.5
-  '@types/yup': 0.29.3
   '@typescript-eslint/eslint-plugin': 2.34.0_0b6cc32ed956db24b1f9e6a4fb8f8b29
   '@typescript-eslint/parser': 2.34.0_typescript@3.9.5
   eslint-config-react: 1.1.7
@@ -1776,10 +1774,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Dk/IDOPtOgubt/IaevIUbTgV7doaKkoorvOyYM2CMwuDyP89bekI7H4xLIwunNYiK9jhCkmc6pUrJk3cj2AB9w==
-  /@types/yup/0.29.3:
-    dev: true
-    resolution:
-      integrity: sha512-XxZFKnxzTfm+DR8MMBA35UUXfUPmjPpi8HJ90VZg7q/LIbtiOhVGJ26gNnATcflcpnIyf2Qm9A+oEhswaqoDpA==
   /@typescript-eslint/eslint-plugin/2.34.0_0b6cc32ed956db24b1f9e6a4fb8f8b29:
     dependencies:
       '@typescript-eslint/experimental-utils': 2.34.0_typescript@3.9.5
@@ -4977,12 +4971,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-3Z4XhFZ3992uIq0XOqb9AreonueSYphE6oYbpt5+3u06JWklbsPkNv3ZKkP9Bz/r+1MWCaMoSQ28P85+1Yc77w==
-  /fn-name/3.0.0:
-    dev: false
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha512-eNMNr5exLoavuAMhIUVsOKF79SWd/zG104ef6sxBTSw+cZc6BXdQXDvYcGvp0VbxVVSp1XDUNoz7mg1xMtSznA==
   /follow-redirects/1.11.0:
     dependencies:
       debug: 3.2.6
@@ -9109,10 +9097,6 @@ packages:
       react-is: 16.13.1
     resolution:
       integrity: sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
-  /property-expr/2.0.2:
-    dev: false
-    resolution:
-      integrity: sha512-bc/5ggaYZxNkFKj374aLbEDqVADdYaLcFo8XBkishUWbaAdjlphaBFns9TvRA2pUseVL/wMFmui9X3IdNDU37g==
   /proxy-addr/2.0.6:
     dependencies:
       forwarded: 0.1.2
@@ -10752,10 +10736,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==
-  /synchronous-promise/2.0.13:
-    dev: false
-    resolution:
-      integrity: sha512-R9N6uDkVsghHePKh1TEqbnLddO2IY25OcsksyFp/qBe7XYd0PVbKEWxhcdMhpLzE1I6skj5l4aEZ3CRxcbArlA==
   /table/5.4.6:
     dependencies:
       ajv: 6.12.2
@@ -10940,10 +10920,6 @@ packages:
       node: '>=0.6'
     resolution:
       integrity: sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
-  /toposort/2.0.2:
-    dev: false
-    resolution:
-      integrity: sha1-riF2gXXRVZ1IvvNUILL0li8JwzA=
   /tough-cookie/2.5.0:
     dependencies:
       psl: 1.8.0
@@ -11802,25 +11778,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-AX3Zw5iPruN5ie6xGRIDgqkT+ZhnRlZMLMHAs8tg7nRruy2Nb+i5o9bwghAogtM08q1dpr2LVoS8KSTMYpWXUw==
-  /yup/0.29.1:
-    dependencies:
-      '@babel/runtime': 7.10.2
-      fn-name: 3.0.0
-      lodash: 4.17.15
-      lodash-es: 4.17.15
-      property-expr: 2.0.2
-      synchronous-promise: 2.0.13
-      toposort: 2.0.2
-    dev: false
-    resolution:
-      integrity: sha512-U7mPIbgfQWI6M3hZCJdGFrr+U0laG28FxMAKIgNvgl7OtyYuUoc4uy9qCWYHZjh49b8T7Ug8NNDdiMIEytcXrQ==
 specifiers:
   '@types/jest': 24.0.19
   '@types/node': 12.11.7
   '@types/react': ^16.9.11
   '@types/react-dom': 16.9.3
   '@types/react-router-dom': ^5.1.2
-  '@types/yup': ^0.29.3
   '@typescript-eslint/eslint-plugin': ^2.12.0
   '@typescript-eslint/parser': ^2.12.0
   axios: ^0.19.0
@@ -11833,4 +11796,3 @@ specifiers:
   semantic-ui-css: ^2.4.1
   semantic-ui-react: ^0.88.1
   typescript: ^3.7.0
-  yup: ^0.29.1

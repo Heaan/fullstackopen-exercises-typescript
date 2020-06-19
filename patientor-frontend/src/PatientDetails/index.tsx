@@ -56,21 +56,30 @@ const PatientDetails: React.FC = () => {
   };
 
   const valuesFilter = (values: EntryFormValues) => {
-    switch (values.type) {
+    const entries: EntryFormValues = JSON.parse(JSON.stringify(values));
+    switch (entries.type) {
       case 'HealthCheck': {
-        delete values.discharge;
-        delete values.employerName;
-        delete values.sickLeave;
-        return values;
+        delete entries.discharge;
+        delete entries.employerName;
+        delete entries.sickLeave;
+        return entries;
       }
       case 'Hospital': {
-        delete values.healthCheckRating;
-        delete values.employerName;
-        delete values.sickLeave;
-        return values;
+        delete entries.healthCheckRating;
+        delete entries.employerName;
+        delete entries.sickLeave;
+        return entries;
+      }
+      case 'OccupationalHealthcare': {
+        delete entries.healthCheckRating;
+        delete entries.discharge;
+        if (!entries.sickLeave?.startDate || !entries.sickLeave?.endDate) {
+          delete entries.sickLeave;
+        }
+        return entries;
       }
       default:
-        return values;
+        return entries;
     }
   };
 
@@ -88,7 +97,6 @@ const PatientDetails: React.FC = () => {
       closeModal();
     } catch (e) {
       console.error(e.response.data);
-      // todo Error message
       setError(e.response.data.error);
     }
   };
@@ -112,7 +120,7 @@ const PatientDetails: React.FC = () => {
           <Button
             onClick={() => openModal()}
             animated="vertical"
-            color="green"
+            color="teal"
             style={{ width: 100 }}
           >
             <Button.Content hidden>Add Entry</Button.Content>

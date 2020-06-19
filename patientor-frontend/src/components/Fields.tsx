@@ -1,17 +1,20 @@
 import React from 'react';
 import { ErrorMessage, FieldProps, Field } from 'formik';
-import { Form as FormUi } from 'semantic-ui-react';
+import { Form as FormUi, StrictFormFieldProps, StrictFormGroupProps } from 'semantic-ui-react';
 
-interface DateProps extends FieldProps {
+interface UtilFieldProps extends FieldProps {
   label: string;
+  type?: string;
+  placeholder?: string;
+  width?: StrictFormFieldProps['width'];
 }
 
-export const DateField: React.FC<DateProps> = ({ field, label }) => {
+export const UtilField: React.FC<UtilFieldProps> = ({ field, label, width, placeholder, type }) => {
   return (
-    <FormUi.Field>
+    <FormUi.Field width={width}>
       <label>{label}</label>
-      <Field type="date" {...field} />
-      <div style={{ color: 'red' }}>
+      <Field type={type} placeholder={placeholder} {...field} className="ui input" />
+      <div style={{ color: 'red', height: '0.2rem' }}>
         <ErrorMessage name={field.name} />
       </div>
     </FormUi.Field>
@@ -48,37 +51,45 @@ export const SelectField = <T extends string | number>({
   );
 };
 
-interface TextProps extends FieldProps {
+interface FieldChild {
   label: string;
-  placeholder: string;
+  name: string;
+  component: React.FC;
+  placeholder?: string;
 }
-
-export const TextField: React.FC<TextProps> = ({ field, label, placeholder }) => (
-  <FormUi.Field>
-    <label>{label}</label>
-    <Field placeholder={placeholder} {...field} />
-    <div style={{ color: 'red' }}>
-      <ErrorMessage name={field.name} />
-    </div>
-  </FormUi.Field>
-);
 
 interface NestedFieldProps extends FieldProps {
-  label: string;
-  placeholder: string;
+  title: string;
+  fieldChildren: FieldChild[];
+  widths?: StrictFormGroupProps['widths'];
 }
 
-export const NestedField: React.FC<NestedFieldProps> = ({ field, label, placeholder }) => (
-  <FormUi.Group>
-    <label>{label}</label>
-    <FormUi.Field {...field}>
-      <Field label="Date" name="discharge.date" component={DateField} />
-      <Field
-        label="Criteria"
-        placeholder={placeholder}
-        name="discharge.criteria"
-        component={TextField}
-      />
-    </FormUi.Field>
-  </FormUi.Group>
+const fieldsetStyle = {
+  border: '1px solid rgba(34,36,38,.15)',
+  borderRadius: '.28571429rem',
+  color: 'rgba(0,0,0,.87)',
+  fontSize: '.92857143em',
+  fontWeight: 700,
+  margin: '0 0 1em',
+};
+
+const legendStyle = {
+  margin: 'auto',
+  padding: 'inherit',
+};
+
+export const NestedField: React.FC<NestedFieldProps> = ({
+  field,
+  title,
+  fieldChildren,
+  widths,
+}) => (
+  <fieldset style={fieldsetStyle}>
+    <legend style={legendStyle}>{title}</legend>
+    <FormUi.Group widths={widths} {...field} style={{ display: 'flex', alignItems: 'center' }}>
+      {fieldChildren.map((fieldChild) => (
+        <Field key={fieldChild.name} {...fieldChild} />
+      ))}
+    </FormUi.Group>
+  </fieldset>
 );

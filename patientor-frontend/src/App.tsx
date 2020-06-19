@@ -8,7 +8,7 @@ import { useStateValue, setPatientList, fetchDiagnosis } from './state';
 import { Patient, Diagnosis } from './types';
 
 import PatientListPage from './PatientListPage';
-import PatientDetails from './components/PatientDetails';
+import PatientDetails from './PatientDetails';
 
 const App: React.FC = () => {
   const [, dispatch] = useStateValue();
@@ -42,6 +42,7 @@ const App: React.FC = () => {
             <Route path="/" render={() => <PatientListPage />} />
           </Switch>
         </Router>
+        <footer style={{ paddingBottom: 50 }}></footer>
       </Container>
     </div>
   );

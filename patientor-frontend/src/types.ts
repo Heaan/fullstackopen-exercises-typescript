@@ -68,5 +68,14 @@ export interface EntryFormValues extends Omit<BaseEntry, 'id'> {
   healthCheckRating?: HealthCheckRating;
   discharge?: Discharge;
   employerName?: string;
-  sickLeave?: SickLeave;
+  sickLeave?: Partial<SickLeave>;
 }
+
+export type EntryFormErrors = {
+  description?: string;
+  date?: string;
+  specialist?: string;
+  discharge?: Partial<Discharge>;
+  employerName?: string;
+  sickLeave?: Partial<SickLeave>;
+};
